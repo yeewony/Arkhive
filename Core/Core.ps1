@@ -34,6 +34,7 @@ $Global:docxcellnum
 #xml
 $Global:xmlchk
 $Global:xmlfilechk
+$Global:xmlzipdir
 $Global:xmldir
 $Global:xmldata
 
@@ -50,12 +51,20 @@ $Global:Date
 
 #JSON----------JSON----------JSON---------JSON----------JSON----------JSON----------JSON
 
-#JSON 경로
+#JSON 경로예시
 $global:jsondir
 $global:jsondata
 
+#USERCONFIG
+$global:userconfigdir = "data\Userconfig.json"
+$global:userconfig = Get-Content -Path $global:userconfigdir -Encoding UTF8 | Out-String | ConvertFrom-Json
+
+
+
+
 
 #Script----------Script----------Script----------Script----------Script----------Script
+
 
 #파일 경로 갖고오기
 function getfilesdir {
@@ -72,14 +81,37 @@ function getfilesdir {
     $Global:IoTzipdir = Get-ChildItem -Path $filename -Filter data.zip | % {$_.FullName}
     $Global:IoTpdfdir = Get-ChildItem -Path $filename -Filter *.pdf | % {$_.FullName}
     $Global:docxdir = Get-ChildItem -Path $filename -Filter *.docx | % {$_.FullName}
-    $Global:xmldir = Get-ChildItem -Path $filename -Filter *_Result_Before.xml | % {$_.FullName}
+    $Global:xmlzipdir = Get-ChildItem -Path $filename -Filter 점검결과*.zip | % {$_.FullName}
     $Global:wmvdir = Get-ChildItem -Path $filename -Filter *.wmv | % {$_.FullName}
 
 }
 
 #xml 파싱 (백신, 날짜 갖고오기)
 function xmlparse {
+    $tmpdir = "tmp"
 
+    mkdir -Path $tmpdir
+
+    Expand-Archive $Global:xmlzipdir -DestinationPath $tmpdir
+
+    $beforexmlpath = Get-ChildItem -Path $tmpdir -Filter *_Result_Before.xml | %{$_.FullName}
+    $Global:xmldata = [xml](Get-Content $beforexmlpath)
+
+    rmdir -Path $tmpdir -Force -Recurse
 }
 
 #docx 파싱
+function docxparse {
+    $tmpdir = "tmp"
+
+    #여기까지 하다 말음 DLL 파싱 후 로딩 해야할듯
+}
+
+#사용자 정보가 올바른지 확인
+function checkconfig {
+    if (!$global:userconfig.user.name) {
+        #유저 세팅이 안되어있음
+        #메세지 박스
+    }
+}
+
