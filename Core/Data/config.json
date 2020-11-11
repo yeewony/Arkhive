@@ -1,0 +1,11 @@
+﻿{
+    "user":  {
+                 "name":  "",
+                 "id":  "",
+                 "userpolicy":  ""
+             },
+    "reportpath":  {
+                       "path":  "D:\\weeklyreport\\report\\"
+                   },
+    "version":  "v5.2.13d"
+}
