@@ -1,0 +1,50 @@
+{
+    "docx" : {
+        "loginpassword":{
+            "bf": "",
+            "af": ""
+        },
+        "osupdate":{
+            "bf": "",
+            "af": ""
+        },
+        "firewall":{
+            "bf": "",
+            "af": ""
+        },
+        "activex":{
+            "bf": "",
+            "af": ""
+        },
+        "appassword":{
+            "bf": "",
+            "af": ""
+        },
+        "hncupdate":{
+            "bf": "",
+            "af": ""
+        },
+        "acrobatupdate":{
+            "bf": "",
+            "af": ""
+        },
+        "flashupdate":{
+            "bf": "",
+            "af": ""
+        },
+        "isMalware":{
+            "bf": "",
+            "af": ""
+        },
+        "isVirus":{
+            "bf": "",
+            "af": ""
+        }
+    },
+
+    "xml" : {
+        "date" : "",
+        "vaccine" : ""
+
+    }
+}

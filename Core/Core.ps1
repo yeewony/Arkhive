@@ -57,7 +57,11 @@ $global:jsondata
 
 #USERCONFIG
 $global:userconfigdir = "data\Userconfig.json"
-$global:userconfig = Get-Content -Path $global:userconfigdir -Encoding UTF8 | Out-String | ConvertFrom-Json
+$global:userconfig = Get-Content -Path $global:userconfigdir -Encoding UTF8 | ConvertFrom-Json
+
+#파싱 데이터 저장소
+$Global:parsingdatajsondir = "data\parsingdata.json"
+$Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir -Encoding UTF8 | ConvertFrom-Json
 
 
 
@@ -97,6 +101,11 @@ function xmlparse {
     $beforexmlpath = Get-ChildItem -Path $tmpdir -Filter *_Result_Before.xml | %{$_.FullName}
     $Global:xmldata = [xml](Get-Content $beforexmlpath)
 
+    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
+    $Global:parsingdata.xml | % {$_.date=$Global:xmldata.'PC-Check'.START_TIME.Split()[0]}
+    $Global:parsingdata.xml | % {$_.vaccine=$Global:xmldata.'PC-Check'.Vaccine}
+    $Global:parsingdata | ConvertTo-Json -Depth 32 | Set-Content $Global:parsingdatajsondir -Encoding UTF8
+    
     rmdir -Path $tmpdir -Force -Recurse
 }
 
@@ -104,7 +113,10 @@ function xmlparse {
 function docxparse {
     $tmpdir = "tmp"
 
-    #여기까지 하다 말음 DLL 파싱 후 로딩 해야할듯
+    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
+    #밑으로는 계속 추가
+
+    
 }
 
 #사용자 정보가 올바른지 확인
