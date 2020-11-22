@@ -1,0 +1,42 @@
+백업용
+
+
+#DLL
+Add-Type -Path DocumentFormat.OpenXml.dll
+
+
+
+#파싱 데이터 저장소
+$Global:parsingdatajsondir = "data\parsingdata.json"
+$Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir -Encoding UTF8 | ConvertFrom-Json
+
+
+
+#xml 파싱 (백신, 날짜 갖고오기)
+function xmlparse {
+    $tmpdir = "tmp"
+
+    mkdir -Path $tmpdir
+
+    Expand-Archive $Global:xmlzipdir -DestinationPath $tmpdir
+
+    $beforexmlpath = Get-ChildItem -Path $tmpdir -Filter *_Result_Before.xml | %{$_.FullName}
+    $Global:xmldata = [xml](Get-Content $beforexmlpath)
+
+    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
+    $Global:parsingdata.xml | % {$_.date=$Global:xmldata.'PC-Check'.START_TIME.Split()[0]}
+    $Global:parsingdata.xml | % {$_.vaccine=$Global:xmldata.'PC-Check'.Vaccine}
+    $Global:parsingdata | ConvertTo-Json -Depth 32 | Set-Content $Global:parsingdatajsondir -Encoding UTF8
+    
+    rmdir -Path $tmpdir -Force -Recurse
+}
+
+#docx 파싱
+function docxparse {
+    $tmpdir = "tmp"
+
+    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
+    #밑으로는 계속 추가
+
+    
+}

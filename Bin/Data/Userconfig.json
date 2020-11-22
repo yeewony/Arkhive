@@ -5,7 +5,7 @@
                  "userpolicy":  ""
              },
     "reportpath":  {
-                       "path":  "D:\\weeklyreport\\report\\"
+                       "path":  ""
                    },
-    "version":  "v5.2.13d"
+    "version":  "v1.0.1"
 }

@@ -3,10 +3,7 @@
 Add-Type -AssemblyName PresentationFramework
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-#DLL
-Add-Type -Path DocumentFormat.OpenXml.dll
-
-#PS Hidden
+#파웨쉘 숨기기
 $t = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
 add-type -name win -member $t -namespace native
 [native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
@@ -51,19 +48,10 @@ $Global:Date
 
 #JSON----------JSON----------JSON---------JSON----------JSON----------JSON----------JSON
 
-#JSON 경로예시
-$global:jsondir
-$global:jsondata
 
 #USERCONFIG
 $global:userconfigdir = "data\Userconfig.json"
 $global:userconfig = Get-Content -Path $global:userconfigdir -Encoding UTF8 | ConvertFrom-Json
-
-#파싱 데이터 저장소
-$Global:parsingdatajsondir = "data\parsingdata.json"
-$Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir -Encoding UTF8 | ConvertFrom-Json
-
-
 
 
 
@@ -90,33 +78,17 @@ function getfilesdir {
 
 }
 
-#xml 파싱 (백신, 날짜 갖고오기)
-function xmlparse {
-    $tmpdir = "tmp"
+function savefilesdir {
 
-    mkdir -Path $tmpdir
+    #경로를 내보내는 것만 해주기에 글로벌 변수 지정 안함
 
-    Expand-Archive $Global:xmlzipdir -DestinationPath $tmpdir
+    New-Item -ItemType Directory -Path tmp
+    $dirdata = @"
+    {
+        "iotdir" : "$Global:IoTzipdir"
+    }
+"@
 
-    $beforexmlpath = Get-ChildItem -Path $tmpdir -Filter *_Result_Before.xml | %{$_.FullName}
-    $Global:xmldata = [xml](Get-Content $beforexmlpath)
-
-    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
-    $Global:parsingdata.xml | % {$_.date=$Global:xmldata.'PC-Check'.START_TIME.Split()[0]}
-    $Global:parsingdata.xml | % {$_.vaccine=$Global:xmldata.'PC-Check'.Vaccine}
-    $Global:parsingdata | ConvertTo-Json -Depth 32 | Set-Content $Global:parsingdatajsondir -Encoding UTF8
-    
-    rmdir -Path $tmpdir -Force -Recurse
-}
-
-#docx 파싱
-function docxparse {
-    $tmpdir = "tmp"
-
-    $Global:parsingdata = Get-Content -Path $Global:parsingdatajsondir | ConvertFrom-Json
-    #밑으로는 계속 추가
-
-    
 }
 
 #사용자 정보가 올바른지 확인
