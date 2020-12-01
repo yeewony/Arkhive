@@ -70,6 +70,7 @@ function getfilesdir {
     #ui에 파일 로딩 체크 한것을 표시하게 하기
 
     #경로 삽입
+    
     $Global:IoTzipdir = Get-ChildItem -Path $filename -Filter data.zip | % {$_.FullName}
     $Global:IoTpdfdir = Get-ChildItem -Path $filename -Filter *.pdf | % {$_.FullName}
     $Global:docxdir = Get-ChildItem -Path $filename -Filter *.docx | % {$_.FullName}

@@ -1,5 +1,26 @@
 {
-    "docx" : {
+    "indexinfo" : {
+        "date" : {
+            "all" : "",
+            "year" : "",
+            "month" : "",
+            "day" : "",
+            "hour" : ""
+        },
+        "inspector" : {
+            "name" : "",
+            "id" : "",
+            "level" : ""
+        },
+        "UID" : ""       
+
+    },
+
+    "data" : {        
+        "date" : "",
+
+        "vaccine" : "",
+
         "loginpassword":{
             "bf": "",
             "af": ""
@@ -32,19 +53,29 @@
             "bf": "",
             "af": ""
         },
-        "isMalware":{
+        "isRootkit":{
             "bf": "",
             "af": ""
         },
         "isVirus":{
             "bf": "",
             "af": ""
+        },
+        "iot_adminpage":{
+            "bf": "",
+            "af": ""
+        },
+        "iot_upnp":{
+            "bf": "",
+            "af": ""
+        },
+        "iot_acccontrol":{
+            "bf": "",
+            "af": ""
+        },
+        "iot_services":{
+            "bf": "",
+            "af": ""
         }
-    },
-
-    "xml" : {
-        "date" : "",
-        "vaccine" : ""
-
     }
 }

@@ -1,11 +1,11 @@
 ﻿{
-    "user":  {
-                 "name":  "",
-                 "id":  "",
-                 "userpolicy":  ""
-             },
-    "reportpath":  {
-                       "path":  ""
-                   },
+    "inspector" : {
+        "name" : "asdf",
+        "id" : "",
+        "level" : ""
+    },
+    "path":  {
+        "arkpath":  "D:\\Ark"
+    },
     "version":  "v1.0.1"
 }
