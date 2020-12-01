@@ -53,6 +53,7 @@ getfiles
 copyfiles
 ./ParsingXML.ps1
 #docx파싱
+#iot파싱??
 #복사했던 파일 정리
 #index파일 정리
 copytoark
